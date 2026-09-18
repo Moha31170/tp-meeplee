@@ -4,7 +4,7 @@ import { connecter } from "../utils/auth.js";
 import { PageMesEmprunts } from "../pages/pageEmprunts.js";
 import { PageJeu } from "../pages/pageJeu.js";
 
-test("position dans la file : 1 puis 2", async ({ page }) => {
+test("position dans la file : 1 puis 2", { tag: "@critique" }, async ({ page }) => {
   await reinitialiser(page);
 
   await connecter(page, "premium@exemple.fr");
@@ -32,7 +32,7 @@ test("position dans la file : 1 puis 2", async ({ page }) => {
   await expect(mesEmprunts.reservation("Pandemic")).toContainText("position 1");
 });
 
-test("première réservation : position calculée à 1", async ({ page }) => {
+test("première réservation : position calculée à 1", { tag: "@critique" }, async ({ page }) => {
   await reinitialiser(page);
   await connecter(page, "premium@exemple.fr");
   await page.evaluate(() => window.meeple.emprunter("J6"));
@@ -47,7 +47,7 @@ test("première réservation : position calculée à 1", async ({ page }) => {
   );
 });
 
-test("réservation enregistrée : la fiche passe par le bouton Réserver", async ({
+test("réservation enregistrée : la fiche passe par le bouton Réserver", { tag: "@critique" }, async ({
   page,
 }) => {
   await reinitialiser(page);
@@ -67,7 +67,7 @@ test("réservation enregistrée : la fiche passe par le bouton Réserver", async
   );
 });
 
-test("annulation d'une réservation", async ({ page }) => {
+test("annulation d'une réservation", { tag: "@critique" }, async ({ page }) => {
   await reinitialiser(page);
   await connecter(page, "premium@exemple.fr");
   await page.evaluate(() => window.meeple.emprunter("J6"));
@@ -84,7 +84,7 @@ test("annulation d'une réservation", async ({ page }) => {
   await expect(mesEmprunts.aucuneReservation).toBeVisible();
 });
 
-test("réservation refusée quand un exemplaire est libre", async ({ page }) => {
+test("réservation refusée quand un exemplaire est libre", { tag: "@critique" }, async ({ page }) => {
   await reinitialiser(page);
   await connecter(page, "testeur@exemple.fr");
 
@@ -107,7 +107,7 @@ test("réservation refusée quand un exemplaire est libre", async ({ page }) => 
   await expect(jeu.boutonReserver).toHaveCount(0);
 });
 
-test("réservation refusée si le jeu est déjà réservé par le membre", async ({
+test("réservation refusée si le jeu est déjà réservé par le membre", { tag: "@critique" }, async ({
   page,
 }) => {
   await reinitialiser(page);
@@ -130,7 +130,7 @@ test("réservation refusée si le jeu est déjà réservé par le membre", async
   });
 });
 
-test("plafond de deux réservations en attente", async ({ page }) => {
+test("plafond de deux réservations en attente", { tag: "@critique" }, async ({ page }) => {
   await reinitialiser(page);
 
   await connecter(page, "premium@exemple.fr");

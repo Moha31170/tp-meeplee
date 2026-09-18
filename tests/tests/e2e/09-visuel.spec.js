@@ -1,13 +1,13 @@
 import { test, expect } from "../utils/fixture.js";
 
-test("visuel — page Connexion", async ({ page }) => {
+test("visuel — page Connexion", { tag: "@etendu" }, async ({ page }) => {
   await page.goto("/connexion.html");
   await expect(page).toHaveScreenshot("connexion.png", {
     fullPage: true,
   });
 });
 
-test("visuel — Mes emprunts sans les colonnes de dates", async ({
+test("visuel — Mes emprunts sans les colonnes de dates", { tag: "@etendu" }, async ({
   page,
   membreConnecte,
 }) => {

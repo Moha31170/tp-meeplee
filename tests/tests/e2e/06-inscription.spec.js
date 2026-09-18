@@ -3,7 +3,7 @@ import { reinitialiser } from "../utils/reset.js";
 import { PageInscription } from "../pages/pageInscription.js";
 import { connecterParFormulaire } from "../utils/auth.js";
 
-test("champs obligatoires", async ({ page }) => {
+test("champs obligatoires", { tag: "@critique" }, async ({ page }) => {
   await reinitialiser(page);
   const inscription = new PageInscription(page);
   await inscription.aller();
@@ -12,7 +12,7 @@ test("champs obligatoires", async ({ page }) => {
   await expect(inscription.erreurs).toHaveText("Tous les champs sont obligatoires.");
 });
 
-test("mot de passe de 7 caractères refusé", async ({ page }) => {
+test("mot de passe de 7 caractères refusé", { tag: "@critique" }, async ({ page }) => {
   await reinitialiser(page);
   const inscription = new PageInscription(page);
   await inscription.aller();
@@ -28,7 +28,7 @@ test("mot de passe de 7 caractères refusé", async ({ page }) => {
   );
 });
 
-test("mot de passe sans chiffre refusé", async ({ page }) => {
+test("mot de passe sans chiffre refusé", { tag: "@critique" }, async ({ page }) => {
   await reinitialiser(page);
   const inscription = new PageInscription(page);
   await inscription.aller();
@@ -44,7 +44,7 @@ test("mot de passe sans chiffre refusé", async ({ page }) => {
   );
 });
 
-test("email existant dans une autre casse refusé", async ({ page }) => {
+test("email existant dans une autre casse refusé", { tag: "@critique" }, async ({ page }) => {
   await reinitialiser(page);
   const inscription = new PageInscription(page);
   await inscription.aller();
@@ -60,7 +60,7 @@ test("email existant dans une autre casse refusé", async ({ page }) => {
   );
 });
 
-test("inscription valide : message de création", async ({ page }) => {
+test("inscription valide : message de création", { tag: "@critique" }, async ({ page }) => {
   await reinitialiser(page);
   const inscription = new PageInscription(page);
   await inscription.aller();
@@ -76,7 +76,7 @@ test("inscription valide : message de création", async ({ page }) => {
   );
 });
 
-test("inscription valide premium : le formulaire accepte l'adhésion", async ({
+test("inscription valide premium : le formulaire accepte l'adhésion", { tag: "@critique" }, async ({
   page,
 }) => {
   await reinitialiser(page);
@@ -95,7 +95,7 @@ test("inscription valide premium : le formulaire accepte l'adhésion", async ({
   );
 });
 
-test("compte créé puis connexion", async ({ page }) => {
+test("compte créé puis connexion", { tag: "@critique" }, async ({ page }) => {
   await reinitialiser(page);
   const inscription = new PageInscription(page);
   await inscription.aller();

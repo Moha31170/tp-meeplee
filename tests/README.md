@@ -1,50 +1,229 @@
-# qa-front-meeple — projet de tests de l'application école Meeple
+# qa-front-meeple — tests de l'application école Meeple
 
-Projet de départ du TP de synthèse. Il contient la configuration Playwright, un test unitaire
-d'exemple, un test de bout en bout d'exemple et trois helpers (session, réinitialisation,
-dates). Les étapes du TP le remplissent progressivement.
+Projet de tests de l'application Meeple avec Playwright et `node:test`.
+L'application est démarrée automatiquement par Playwright ; aucun pipeline CI/CD n'est requis
+pour ce module.
 
-## Installation (toujours depuis un disque local)
+## Installation
+
+Depuis le dossier `tests/` :
 
 ```bash
 npm install
 npx playwright install chromium
 ```
 
+L'application se trouve dans `../app/` et Playwright la démarre automatiquement sur le port 4200.
+
 ## Commandes
 
-```bash
-npm run test:unit      # tests unitaires node:test (tests/unitaires/)
-npm run test:e2e       # tests Playwright (tests/e2e/) ; l'application est démarrée automatiquement
-npm test               # les deux
-npm run test:critique  # tests tagués @critique
-npm run test:etendu    # tests tagués @etendu
-npm run rapport        # ouvre le dernier rapport HTML
-```
-
-L'application école se trouve dans `../app/` et se lance aussi à la main : `node ../app/serveur.js`
-(port 4200 ; `PORT=4300 npm test` déplace l'application et les tests).
-
-## Structure
-
-```
-tests/unitaires/   *.test.js  — règles métier (oracles)
-tests/e2e/         *.spec.js  — parcours dans le navigateur
-tests/pages/       Page Objects
-tests/utils/       auth.js (session), reset.js (réinitialisation), dates.js (dates relatives)
-tests/donnees/     jeux de données JSON
-scripts/           cartographier.js : instantané d'accessibilité d'une page (rôles, noms, id, data-testid)
-ia/commun/         bibliothèque d'appel à un modèle (mock par défaut, anthropic, ollama) et lecture du rapport JSON
-```
-
-## Outils fournis
+### Tests unitaires
 
 ```bash
-node scripts/cartographier.js /index.html                          # la page telle que Playwright la voit
-node scripts/cartographier.js /mes-emprunts.html testeur@exemple.fr   # avec une session injectée
+npm run test:unit
 ```
 
-`ia/commun/ia.js` expose `demander({ systeme, utilisateur, json })` ; le fournisseur vient de la
-variable `IA_FOURNISSEUR` (`mock` par défaut : aucun réseau, aucune clé). Le simulateur reconnaît
-la tâche aux mots « Tâche : triage » et « Tâche : génération de demandes d'inscription » dans le
-prompt système.
+### Tests E2E
+
+```bash
+npm run test:e2e
+```
+
+### Suite complète
+
+```bash
+npm test
+```
+
+La suite complète doit rester sous deux minutes sur une machine de développement standard.
+
+### Sous-ensemble critique
+
+```bash
+npm run test:critique
+```
+
+Équivalent à :
+
+```bash
+npx playwright test --grep "@critique"
+```
+
+### Sous-ensemble étendu
+
+```bash
+npm run test:etendu
+```
+
+Équivalent à :
+
+```bash
+npx playwright test --grep "@etendu"
+```
+
+Les deux sélections sont exclusives : chaque test E2E porte exactement un des deux tags.
+
+### Projet mobile
+
+```bash
+npx playwright test --project=mobile
+```
+
+Ce projet utilise le profil Playwright `Pixel 7` et est réservé à `11-mobile.spec.js`.
+
+## Tags
+
+Les tests E2E sont classés selon leur criticité :
+
+- `@critique` : parcours métier essentiels à la validation de l'application.
+- `@etendu` : scénarios complémentaires, contrôles non fonctionnels et vérifications approfondies.
+
+Le tag est placé dans les options du test :
+
+```js
+test("connexion réussie", { tag: "@critique" }, async ({ page }) => {
+  // ...
+});
+```
+
+## Instabilité et répétition
+
+Pour rechercher une instabilité sur un fichier :
+
+```bash
+npx playwright test tests/e2e/07-etats.spec.js --repeat-each 10
+```
+
+Pour faciliter le diagnostic en supprimant la concurrence :
+
+```bash
+npx playwright test tests/e2e/07-etats.spec.js --repeat-each 10 --workers=1
+```
+
+Une exécution répétée ne constitue pas une preuve qu'un test est flaky : il faut comparer les
+résultats des dix répétitions et conserver la sortie Playwright en cas d'écart.
+
+## Latence réseau
+
+`tests/utils/reseau.js` fournit :
+
+```js
+simulerLatence(page, ms, urlPattern);
+```
+
+Par défaut, les requêtes sous `/donnees/` sont ralenties. Un motif précis peut être fourni :
+
+```js
+await simulerLatence(page, 1500, "**/donnees/jeux.json");
+```
+
+Le helper attend avant de laisser passer la requête et ne modifie pas l'application elle-même.
+
+## Attentes asynchrones
+
+Lorsqu'une valeur est calculée ou rendue après une opération asynchrone, ne pas effectuer une
+lecture immédiate suivie d'une assertion fragile. Utiliser une attente Playwright comme
+`expect.poll` ou `toPass`.
+
+Exemple :
+
+```js
+await expect(async () => {
+  const valeur = await locator.textContent();
+  expect(valeur).toMatch(/.../);
+}).toPass();
+```
+
+## Variables d'environnement
+
+### `PORT`
+
+Définit le port HTTP utilisé par l'application et par Playwright.
+
+Windows PowerShell :
+
+```powershell
+$env:PORT=4300
+npm run test:e2e
+```
+
+Linux/macOS :
+
+```bash
+PORT=4300 npm run test:e2e
+```
+
+La valeur par défaut est `4200`.
+
+### `CI`
+
+`CI` permet de signaler une exécution d'intégration continue à la configuration Playwright.
+Dans ce projet, lorsqu'elle est définie, la configuration utilise davantage de workers, active
+une reprise (`retry`) et interdit les `test.only` oubliés.
+
+Windows PowerShell :
+
+```powershell
+$env:CI=1
+npm run test:e2e
+```
+
+Linux/macOS :
+
+```bash
+CI=1 npm run test:e2e
+```
+
+**Ce module ne demande pas de créer ou configurer un pipeline CI/CD.** La variable `CI` est
+simplement prise en charge par la configuration locale afin que son comportement soit explicite.
+
+## Conventions
+
+- Tests E2E : `tests/e2e/*.spec.js`.
+- Tests unitaires : `tests/unitaires/*.test.js`.
+- Page Objects : `tests/pages/`.
+- Helpers : `tests/utils/`.
+- Données de test : `tests/donnees/`.
+- Un fichier `.spec.js` correspond à une fonctionnalité ou un thème de test.
+- Chaque test E2E porte exactement un tag `@critique` ou `@etendu`.
+- Préférer les localisateurs accessibles (`getByRole`, `getByLabel`, etc.) aux sélecteurs CSS
+  lorsque cela est possible.
+- Préférer les assertions Playwright avec attente automatique (`toHaveText`, `toBeVisible`,
+  `toHaveURL`, `expect.poll`, `toPass`) aux temporisations arbitraires.
+- Les tests doivent être indépendants : réinitialiser les données et préparer la session
+  nécessaires avant chaque scénario.
+- Ne pas modifier `../app/` pour faire passer un test.
+
+## Structure utile
+
+```text
+tests/
+├── package.json
+├── playwright.config.js
+├── README.md
+├── scripts/
+├── tests/
+│   ├── donnees/
+│   ├── e2e/
+│   ├── pages/
+│   ├── unitaires/
+│   └── utils/
+│       ├── auth.js
+│       ├── dates.js
+│       ├── fixture.js
+│       ├── oracles.js
+│       ├── reseau.js
+│       └── reset.js
+└── ia/
+    └── commun/
+```
+
+## Rapport Playwright
+
+Après une exécution :
+
+```bash
+npm run rapport
+```
+
+ouvre le dernier rapport HTML.

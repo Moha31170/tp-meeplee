@@ -20,7 +20,7 @@ function instantJour(iso) {
   return new Date(`${iso}T09:00:00Z`);
 }
 
-test("rendre Dixit en retard : pénalité calculée depuis la date affichée", async ({
+test("rendre Dixit en retard : pénalité calculée depuis la date affichée", { tag: "@critique" }, async ({
   page,
 }) => {
   await reinitialiser(page);
@@ -28,10 +28,12 @@ test("rendre Dixit en retard : pénalité calculée depuis la date affichée", a
   const mesEmprunts = new PageMesEmprunts(page);
   await mesEmprunts.aller();
 
-  const retourAffiche = await mesEmprunts
-    .ligne("Dixit")
-    .locator(".date-retour")
-    .textContent();
+  const dateRetour = mesEmprunts.ligne("Dixit").locator(".date-retour");
+  let retourAffiche;
+  await expect(async () => {
+    retourAffiche = await dateRetour.textContent();
+    expect(retourAffiche?.trim()).toMatch(/^\d{2}\/\d{2}\/\d{4}$/);
+  }).toPass();
   const retourIso = isoDepuisAffichage(retourAffiche.trim());
   const aujourdHui = dateISO();
   const retard = joursDeRetard(retourIso, aujourdHui);
@@ -47,7 +49,7 @@ test("rendre Dixit en retard : pénalité calculée depuis la date affichée", a
   );
 });
 
-test("prolongation refusée si l'emprunt est en retard", async ({ page }) => {
+test("prolongation refusée si l'emprunt est en retard", { tag: "@critique" }, async ({ page }) => {
   await reinitialiser(page);
   await connecter(page, "testeur@exemple.fr");
   const mesEmprunts = new PageMesEmprunts(page);
@@ -59,7 +61,7 @@ test("prolongation refusée si l'emprunt est en retard", async ({ page }) => {
   );
 });
 
-test("prolongation refusée si le jeu est réservé par un autre membre", async ({
+test("prolongation refusée si le jeu est réservé par un autre membre", { tag: "@critique" }, async ({
   page,
 }) => {
   await reinitialiser(page);
@@ -79,7 +81,7 @@ test("prolongation refusée si le jeu est réservé par un autre membre", async 
   );
 });
 
-test("prolongation acceptée : nouveau retour calculé depuis l'ancien", async ({
+test("prolongation acceptée : nouveau retour calculé depuis l'ancien", { tag: "@critique" }, async ({
   page,
 }) => {
   await reinitialiser(page);
@@ -105,7 +107,7 @@ test("prolongation acceptée : nouveau retour calculé depuis l'ancien", async (
   ).toHaveText(formaterDate(attenduIso));
 });
 
-test("prolongation acceptée puis refusée à la seconde tentative", async ({
+test("prolongation acceptée puis refusée à la seconde tentative", { tag: "@critique" }, async ({
   page,
 }) => {
   await reinitialiser(page);
@@ -138,7 +140,7 @@ test("prolongation acceptée puis refusée à la seconde tentative", async ({
   );
 });
 
-test("rendu le jour du retour prévu : aucun retard", async ({ page }) => {
+test("rendu le jour du retour prévu : aucun retard", { tag: "@critique" }, async ({ page }) => {
   await page.clock.setFixedTime(INSTANT_FIXE);
   await reinitialiser(page);
   await connecter(page, "standard@exemple.fr");
@@ -160,7 +162,7 @@ test("rendu le jour du retour prévu : aucun retard", async ({ page }) => {
   await expect(mesEmprunts.message).toHaveText("Jeu rendu, merci !");
 });
 
-test("plus de vingt jours de retard : pénalité calculée par l'oracle", async ({
+test("plus de vingt jours de retard : pénalité calculée par l'oracle", { tag: "@critique" }, async ({
   page,
 }) => {
   await page.clock.setFixedTime(INSTANT_FIXE);

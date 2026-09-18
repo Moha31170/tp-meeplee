@@ -23,27 +23,27 @@ async function auditer(page, testInfo, nomPage) {
   ).toEqual([]);
 }
 
-test("accessibilité — Catalogue", async ({ page }, testInfo) => {
+test("accessibilité — Catalogue", { tag: "@etendu" }, async ({ page }, testInfo) => {
   await page.goto("/index.html");
   await auditer(page, testInfo, "catalogue");
 });
 
-test("accessibilité — Fiche du jeu", async ({ page }, testInfo) => {
+test("accessibilité — Fiche du jeu", { tag: "@etendu" }, async ({ page }, testInfo) => {
   await page.goto("/jeu.html?id=J1");
   await auditer(page, testInfo, "jeu");
 });
 
-test("accessibilité — Connexion", async ({ page }, testInfo) => {
+test("accessibilité — Connexion", { tag: "@etendu" }, async ({ page }, testInfo) => {
   await page.goto("/connexion.html");
   await auditer(page, testInfo, "connexion");
 });
 
-test("accessibilité — Inscription", async ({ page }, testInfo) => {
+test("accessibilité — Inscription", { tag: "@etendu" }, async ({ page }, testInfo) => {
   await page.goto("/inscription.html");
   await auditer(page, testInfo, "inscription");
 });
 
-test("accessibilité — Mes emprunts (page connectée par fixture)", async ({
+test("accessibilité — Mes emprunts (page connectée par fixture)", { tag: "@etendu" }, async ({
   page,
   membreConnecte,
 }, testInfo) => {

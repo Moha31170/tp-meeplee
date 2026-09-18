@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test("poids — mesure puis respecte le budget", async ({ page }) => {
+test("poids — mesure puis respecte le budget", { tag: "@etendu" }, async ({ page }) => {
   const lectures = [];
 
   page.on("response", (response) => {

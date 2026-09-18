@@ -6,7 +6,7 @@ import { PageMesEmprunts } from "../pages/pageEmprunts.js";
 import { dateRetourPrevue, formaterDate } from "../utils/oracles.js";
 import { dateISO } from "../utils/dates.js";
 
-test("quota atteint", async ({ page }) => {
+test("quota atteint", { tag: "@critique" }, async ({ page }) => {
   await reinitialiser(page);
   await connecter(page, "testeur@exemple.fr");
   await page.goto("/jeu.html?id=J4");
@@ -16,7 +16,7 @@ test("quota atteint", async ({ page }) => {
   );
 });
 
-test("emprunt premium : durée et disponibilité", async ({ page }) => {
+test("emprunt premium : durée et disponibilité", { tag: "@critique" }, async ({ page }) => {
   await reinitialiser(page);
   await connecter(page, "premium@exemple.fr");
   const jeu = new PageJeu(page);
@@ -31,7 +31,7 @@ test("emprunt premium : durée et disponibilité", async ({ page }) => {
   await expect(jeu.disponibilite).toHaveText("Aucun exemplaire disponible");
 });
 
-test("quota premium atteint au quatrième emprunt", async ({ page }) => {
+test("quota premium atteint au quatrième emprunt", { tag: "@critique" }, async ({ page }) => {
   await reinitialiser(page);
   await connecter(page, "premium@exemple.fr");
   await page.evaluate(async () => {
@@ -54,7 +54,7 @@ test("quota premium atteint au quatrième emprunt", async ({ page }) => {
   });
 });
 
-test("compteur premium : quota de 3", async ({ page }) => {
+test("compteur premium : quota de 3", { tag: "@critique" }, async ({ page }) => {
   await reinitialiser(page);
   await connecter(page, "premium@exemple.fr");
   await page.evaluate(async () => {
@@ -67,7 +67,7 @@ test("compteur premium : quota de 3", async ({ page }) => {
   await expect(mesEmprunts.compteur).toHaveText("3 emprunts en cours sur 3");
 });
 
-test("fiche visiteur : date de retour calculée", async ({ page }) => {
+test("fiche visiteur : date de retour calculée", { tag: "@critique" }, async ({ page }) => {
   await reinitialiser(page);
   const jeu = new PageJeu(page);
   await jeu.aller("J6");
@@ -76,7 +76,7 @@ test("fiche visiteur : date de retour calculée", async ({ page }) => {
   await expect(jeu.retourPrevu).toHaveText(formaterDate(attendu));
 });
 
-test("fiche premium : date de retour calculée", async ({ page }) => {
+test("fiche premium : date de retour calculée", { tag: "@critique" }, async ({ page }) => {
   await reinitialiser(page);
   await connecter(page, "premium@exemple.fr");
   const jeu = new PageJeu(page);
@@ -86,7 +86,7 @@ test("fiche premium : date de retour calculée", async ({ page }) => {
   await expect(jeu.retourPrevu).toHaveText(formaterDate(attendu));
 });
 
-test("jeu déjà emprunté par le membre", async ({ page }) => {
+test("jeu déjà emprunté par le membre", { tag: "@critique" }, async ({ page }) => {
   await reinitialiser(page);
   await connecter(page, "premium@exemple.fr");
   await page.evaluate(() => window.meeple.emprunter("J6"));
@@ -106,7 +106,7 @@ test("jeu déjà emprunté par le membre", async ({ page }) => {
   });
 });
 
-test("jeu déjà emprunté par un autre membre", async ({ page }) => {
+test("jeu déjà emprunté par un autre membre", { tag: "@critique" }, async ({ page }) => {
   await reinitialiser(page);
   await connecter(page, "premium@exemple.fr");
   await page.evaluate(() => window.meeple.emprunter("J6"));
@@ -119,7 +119,7 @@ test("jeu déjà emprunté par un autre membre", async ({ page }) => {
   await expect(jeu.boutonEmprunter).toHaveCount(0);
 });
 
-test("aucun exemplaire : façade et bouton Emprunter absent", async ({ page }) => {
+test("aucun exemplaire : façade et bouton Emprunter absent", { tag: "@critique" }, async ({ page }) => {
   await reinitialiser(page);
   await connecter(page, "premium@exemple.fr");
   await page.evaluate(() => window.meeple.emprunter("J6"));

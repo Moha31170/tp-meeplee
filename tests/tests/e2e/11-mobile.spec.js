@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test("mobile — catalogue sans débordement horizontal", async ({ page }) => {
+test("mobile — catalogue sans débordement horizontal", { tag: "@etendu" }, async ({ page }) => {
   await page.goto("/index.html");
 
   const largeur = await page.evaluate(() => ({

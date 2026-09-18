@@ -1,6 +1,6 @@
-import { test, expect } from "../utils/fixtures.js";
+import { test, expect } from "../utils/fixture.js";
 
-test("la liste est triée par nom", async ({ pageCatalogue }) => {
+test("la liste est triée par nom", { tag: "@etendu" }, async ({ pageCatalogue }) => {
   await expect(pageCatalogue.nomsAffiches).toHaveText([
     "7 Wonders",
     "Azul",
@@ -13,7 +13,7 @@ test("la liste est triée par nom", async ({ pageCatalogue }) => {
   ]);
 });
 
-test("un jeu retiré affiche Indisponible et un bouton Emprunter désactivé, sans bouton Réserver", async ({
+test("un jeu retiré affiche Indisponible et un bouton Emprunter désactivé, sans bouton Réserver", { tag: "@etendu" }, async ({
   pageCatalogue,
 }) => {
   await expect(pageCatalogue.disponibilite("Twilight Imperium")).toHaveText(
@@ -27,7 +27,7 @@ test("un jeu retiré affiche Indisponible et un bouton Emprunter désactivé, sa
   );
 });
 
-test("les disponibilités affichées correspondent aux exemplaires libres", async ({
+test("les disponibilités affichées correspondent aux exemplaires libres", { tag: "@etendu" }, async ({
   pageCatalogue,
 }) => {
   await expect(pageCatalogue.disponibilite("Catan")).toHaveText(
@@ -46,7 +46,7 @@ test("les disponibilités affichées correspondent aux exemplaires libres", asyn
   );
 });
 
-test("filtre « 2 » joueurs : jeux jouables à 2 (2 <= joueurs <= 2)", async ({
+test("filtre « 2 » joueurs : jeux jouables à 2 (2 <= joueurs <= 2)", { tag: "@etendu" }, async ({
   pageCatalogue,
 }) => {
   await pageCatalogue.filtrerParJoueurs(2);
@@ -59,7 +59,7 @@ test("filtre « 2 » joueurs : jeux jouables à 2 (2 <= joueurs <= 2)", async ({
   ]);
 });
 
-test("filtre « 4 » joueurs : jeux jouables à 4 (RG-CATALOGUE, app/README.md)", async ({
+test("filtre « 4 » joueurs : jeux jouables à 4 (RG-CATALOGUE, app/README.md)", { tag: "@etendu" }, async ({
   pageCatalogue,
 }) => {
   await pageCatalogue.filtrerParJoueurs(4);
@@ -67,7 +67,7 @@ test("filtre « 4 » joueurs : jeux jouables à 4 (RG-CATALOGUE, app/README.md)"
   await expect(pageCatalogue.cartes).toHaveCount(8);
 });
 
-test("filtre « 8 » joueurs : Codenames seul (RG-CATALOGUE, app/README.md)", async ({
+test("filtre « 8 » joueurs : Codenames seul (RG-CATALOGUE, app/README.md)", { tag: "@etendu" }, async ({
   pageCatalogue,
 }) => {
   await pageCatalogue.filtrerParJoueurs(8);
@@ -75,7 +75,7 @@ test("filtre « 8 » joueurs : Codenames seul (RG-CATALOGUE, app/README.md)", as
   await expect(pageCatalogue.nomsAffiches).toHaveText(["Codenames"]);
 });
 
-test("filtre durée maximale « 30 min »", async ({ pageCatalogue }) => {
+test("filtre durée maximale « 30 min »", { tag: "@etendu" }, async ({ pageCatalogue }) => {
   await pageCatalogue.filtrerParDuree(30);
 
   await expect(pageCatalogue.nomsAffiches).toHaveText([
@@ -85,7 +85,7 @@ test("filtre durée maximale « 30 min »", async ({ pageCatalogue }) => {
   ]);
 });
 
-test("cumul des filtres joueurs et durée", async ({ pageCatalogue }) => {
+test("cumul des filtres joueurs et durée", { tag: "@etendu" }, async ({ pageCatalogue }) => {
   await pageCatalogue.filtrerParJoueurs(2);
   await pageCatalogue.filtrerParDuree(30);
 
@@ -95,19 +95,19 @@ test("cumul des filtres joueurs et durée", async ({ pageCatalogue }) => {
   ]);
 });
 
-test("recherche insensible à la casse", async ({ pageCatalogue }) => {
+test("recherche insensible à la casse", { tag: "@etendu" }, async ({ pageCatalogue }) => {
   await pageCatalogue.rechercher("DIXIT");
 
   await expect(pageCatalogue.nomsAffiches).toHaveText(["Dixit"]);
 });
 
-test("recherche insensible aux accents", async ({ pageCatalogue }) => {
+test("recherche insensible aux accents", { tag: "@etendu" }, async ({ pageCatalogue }) => {
   await pageCatalogue.rechercher("dixît");
 
   await expect(pageCatalogue.nomsAffiches).toHaveText(["Dixit"]);
 });
 
-test("recherche sans résultat affiche le message dédié", async ({
+test("recherche sans résultat affiche le message dédié", { tag: "@etendu" }, async ({
   pageCatalogue,
 }) => {
   await pageCatalogue.rechercher("zzzzz");
