@@ -1,0 +1,11 @@
+{
+  "model": "default",
+  "instructions": "../app/README.md",
+  "permissions": {
+    "tests": "allow",
+    "write": "ask",
+    "rm": "deny",
+    "git push": "deny",
+    "default": "ask"
+  }
+}
