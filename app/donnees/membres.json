@@ -1,0 +1,5 @@
+[
+  { "id": "M1", "prenom": "Camille", "email": "testeur@exemple.fr", "premium": false, "password": "Test1234!" },
+  { "id": "M2", "prenom": "Karim", "email": "premium@exemple.fr", "premium": true, "password": "Test1234!" },
+  { "id": "M3", "prenom": "Inès", "email": "standard@exemple.fr", "premium": false, "password": "Test1234!" }
+]

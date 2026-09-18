@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meeple — Fiche du jeu</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Meeple</h1>
+    <nav aria-label="Navigation principale"></nav>
+  </header>
+  <main>
+    <h2 id="titre">Fiche du jeu</h2>
+    <p id="message" role="status"></p>
+    <p id="chargement">Chargement de la fiche…</p>
+    <section id="fiche" hidden>
+      <dl class="details">
+        <dt>Joueurs</dt><dd id="joueurs"></dd>
+        <dt>Durée</dt><dd id="duree"></dd>
+        <dt>Âge</dt><dd id="age"></dd>
+        <dt>Catégorie</dt><dd id="categorie"></dd>
+        <dt>Disponibilité</dt><dd id="disponibilite"></dd>
+        <dt>Retour prévu si vous empruntez aujourd'hui</dt><dd id="retour-prevu"></dd>
+      </dl>
+      <div class="actions">
+        <button id="btn-emprunter" type="button" data-testid="btn-emprunter" hidden>Emprunter</button>
+        <button id="btn-reserver" type="button" data-testid="btn-reserver" class="secondaire" hidden>Réserver</button>
+      </div>
+      <p class="infos"><a id="lien-catalogue" href="/index.html">Retour au catalogue</a></p>
+    </section>
+  </main>
+  <footer></footer>
+  <script type="module" src="/js/session.js"></script>
+  <script type="module" src="/js/pages/jeu.js"></script>
+</body>
+</html>

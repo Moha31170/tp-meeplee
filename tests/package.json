@@ -1,0 +1,19 @@
+{
+  "name": "qa-front-meeple",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Projet de tests front-end de l'application école Meeple (ludothèque en ligne) — TP de synthèse.",
+  "type": "module",
+  "scripts": {
+    "test:unit": "node --test tests/unitaires/*.test.js",
+    "test:e2e": "playwright test",
+    "test": "npm run test:unit && npm run test:e2e",
+    "test:critique": "playwright test --grep @critique",
+    "test:etendu": "playwright test --grep @etendu",
+    "rapport": "playwright show-report"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
+    "@playwright/test": "1.63.0"
+  }
+}

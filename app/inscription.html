@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meeple — Créer un compte</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Meeple</h1>
+    <nav aria-label="Navigation principale"></nav>
+  </header>
+  <main>
+    <h2>Créer un compte</h2>
+    <p id="message" role="status"></p>
+    <form id="form-inscription" novalidate>
+      <div>
+        <label for="prenom">Prénom</label>
+        <input id="prenom" name="prenom" type="text" autocomplete="given-name">
+      </div>
+      <div>
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="email">
+      </div>
+      <div>
+        <label for="password">Mot de passe</label>
+        <input id="password" name="password" type="password" autocomplete="new-password">
+      </div>
+      <div class="case">
+        <input id="premium" name="premium" type="checkbox">
+        <label for="premium">Adhésion premium (21 jours d'emprunt, 3 jeux)</label>
+      </div>
+      <ul id="erreurs" role="alert"></ul>
+      <button id="btn-inscription" type="submit">Créer mon compte</button>
+    </form>
+  </main>
+  <footer></footer>
+  <script type="module" src="/js/session.js"></script>
+  <script type="module" src="/js/pages/inscription.js"></script>
+</body>
+</html>

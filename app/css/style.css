@@ -1,0 +1,139 @@
+:root {
+  --vert: #1f7a5c;
+  --vert-fonce: #145741;
+  --ocre: #8a5a12;
+  --gris: #4a5560;
+  --fond: #f5f7f4;
+  --blanc: #ffffff;
+  --rouge: #b3261e;
+  --vert-ok: #1e7d4a;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+  color: #1f2933;
+  background: var(--fond);
+  line-height: 1.5;
+}
+
+header {
+  background: linear-gradient(90deg, var(--vert-fonce), var(--vert));
+  color: var(--blanc);
+  padding: 0.8rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+header h1 { margin: 0; font-size: 1.6rem; }
+
+nav { display: flex; align-items: center; gap: 1rem; }
+nav a { color: var(--blanc); font-weight: 600; }
+nav .membre { opacity: 0.9; }
+
+main { max-width: 960px; margin: 1.5rem auto; padding: 0 1rem; }
+
+footer {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  color: var(--gris);
+  font-size: 0.9rem;
+  flex-wrap: wrap;
+}
+
+a { color: var(--vert-fonce); }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 3px solid #ffb703;
+  outline-offset: 2px;
+}
+
+button {
+  background: var(--vert);
+  color: var(--blanc);
+  border: 0;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+button:hover { background: var(--vert-fonce); }
+button[disabled] { background: #8a9aa8; cursor: not-allowed; }
+button.secondaire { background: var(--blanc); color: var(--vert-fonce); border: 2px solid var(--vert); }
+button.secondaire:hover { background: #e6f2ec; }
+
+#message { min-height: 1.5rem; margin: 0.5rem 0 1rem; font-weight: 600; color: var(--vert-ok); }
+#message.erreur { color: var(--rouge); }
+.erreur, #message-erreur { color: var(--rouge); font-weight: 600; }
+#erreurs { color: var(--rouge); font-weight: 600; }
+
+.filtres { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; margin-bottom: 1rem; }
+.filtres label, .filtres .libelle { font-weight: 600; margin-right: 0.4rem; }
+
+select, input {
+  padding: 0.45rem 0.6rem;
+  border: 1px solid #94a3b8;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: var(--blanc);
+}
+
+ul#jeux { list-style: none; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+
+li.jeu {
+  background: var(--blanc);
+  border: 1px solid #d9e2ec;
+  border-radius: 10px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+li.jeu .nom { font-size: 1.25rem; font-weight: 700; color: var(--vert-fonce); }
+li.jeu .disponibilite { font-weight: 600; }
+li.jeu .disponibilite.indisponible { color: var(--rouge); }
+li.jeu .categorie { color: var(--ocre); font-weight: 600; text-transform: capitalize; }
+li.jeu button { align-self: flex-start; margin-top: 0.4rem; }
+
+/* Version mobile : les cartes prennent toute la largeur. */
+@media (max-width: 600px) {
+  ul#jeux { grid-template-columns: 1fr; }
+  li.jeu { min-width: 460px; }
+}
+
+dl.details { display: grid; grid-template-columns: max-content 1fr; gap: 0.4rem 1.2rem; background: var(--blanc); border: 1px solid #d9e2ec; border-radius: 10px; padding: 1.2rem; max-width: 640px; }
+dl.details dt { font-weight: 600; color: var(--gris); }
+dl.details dd { margin: 0; }
+.actions { display: flex; gap: 1rem; margin: 1rem 0; }
+
+form { background: var(--blanc); border: 1px solid #d9e2ec; border-radius: 10px; padding: 1.2rem; display: grid; gap: 0.8rem; max-width: 520px; }
+form label { font-weight: 600; display: block; margin-bottom: 0.25rem; }
+form .case { display: flex; gap: 0.5rem; align-items: center; }
+form .case label { margin: 0; }
+form input[type="checkbox"] { width: 1.2rem; height: 1.2rem; }
+
+table { width: 100%; border-collapse: collapse; background: var(--blanc); }
+th, td { text-align: left; padding: 0.6rem 0.8rem; border-bottom: 1px solid #d9e2ec; }
+th { background: #e3efe9; color: var(--vert-fonce); }
+td.statut.retard { color: var(--rouge); font-weight: 600; }
+td.actions { display: flex; gap: 0.5rem; }
+
+ul#reservations { list-style: none; padding: 0; display: grid; gap: 0.5rem; }
+li.reservation { background: var(--blanc); border: 1px solid #d9e2ec; border-radius: 8px; padding: 0.6rem 0.8rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+
+#chargement { color: var(--gris); font-style: italic; }
+.infos { color: var(--gris); }
+
+/* L'attribut hidden doit toujours masquer, y compris sur les grilles et flex. */
+[hidden] { display: none !important; }

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meeple — Catalogue</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Meeple</h1>
+    <nav aria-label="Navigation principale"></nav>
+  </header>
+  <main>
+    <h2>Catalogue des jeux</h2>
+    <div class="filtres">
+      <div>
+        <span class="libelle">Recherche</span>
+        <input id="recherche" type="search" autocomplete="off">
+      </div>
+      <div>
+        <label for="joueurs">Nombre de joueurs</label>
+        <select id="joueurs">
+          <option value="0">Tous</option>
+          <option value="2">2</option>
+          <option value="4">4</option>
+          <option value="6">6</option>
+          <option value="8">8</option>
+        </select>
+      </div>
+      <div>
+        <label for="duree">Durée maximale</label>
+        <select id="duree">
+          <option value="0">Toutes</option>
+          <option value="30">30 min</option>
+          <option value="60">1 h</option>
+          <option value="120">2 h</option>
+        </select>
+      </div>
+    </div>
+    <p id="message" role="status"></p>
+    <p id="chargement">Chargement du catalogue…</p>
+    <ul id="jeux"></ul>
+  </main>
+  <footer></footer>
+  <script type="module" src="/js/session.js"></script>
+  <script type="module" src="/js/pages/catalogue.js"></script>
+</body>
+</html>

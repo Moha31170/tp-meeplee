@@ -1,0 +1,65 @@
+[
+  {
+    "id": "pro-01",
+    "description": "aucun motif de refus -> prolongation acceptée",
+    "fn": "refusProlongation",
+    "entree": [{ "prolonge": false, "joursRetard": 0, "reserveParUnAutre": false }],
+    "attendu": null
+  },
+  {
+    "id": "pro-02",
+    "description": "déjà prolongé, seul motif",
+    "fn": "refusProlongation",
+    "entree": [{ "prolonge": true, "joursRetard": 0, "reserveParUnAutre": false }],
+    "attendu": "deja_prolonge"
+  },
+  {
+    "id": "pro-03",
+    "description": "en retard, seul motif",
+    "fn": "refusProlongation",
+    "entree": [{ "prolonge": false, "joursRetard": 1, "reserveParUnAutre": false }],
+    "attendu": "en_retard"
+  },
+  {
+    "id": "pro-04",
+    "description": "réservé par un autre membre, seul motif",
+    "fn": "refusProlongation",
+    "entree": [{ "prolonge": false, "joursRetard": 0, "reserveParUnAutre": true }],
+    "attendu": "jeu_reserve"
+  },
+  {
+    "id": "pro-05",
+    "description": "ordre : les trois motifs réunis -> priorité à déjà prolongé",
+    "fn": "refusProlongation",
+    "entree": [{ "prolonge": true, "joursRetard": 5, "reserveParUnAutre": true }],
+    "attendu": "deja_prolonge"
+  },
+  {
+    "id": "pro-06",
+    "description": "ordre : en retard ET réservé (sans prolongation) -> priorité à en retard",
+    "fn": "refusProlongation",
+    "entree": [{ "prolonge": false, "joursRetard": 3, "reserveParUnAutre": true }],
+    "attendu": "en_retard"
+  },
+  {
+    "id": "pro-07",
+    "description": "ordre : déjà prolongé ET réservé (sans retard) -> priorité à déjà prolongé",
+    "fn": "refusProlongation",
+    "entree": [{ "prolonge": true, "joursRetard": 0, "reserveParUnAutre": true }],
+    "attendu": "deja_prolonge"
+  },
+  {
+    "id": "pro-08",
+    "description": "limite : jour du retour prévu exact (joursRetard=0, donc pas en retard) combiné à une réservation -> jeu_reserve",
+    "fn": "refusProlongation",
+    "entree": [{ "prolonge": false, "joursRetard": 0, "reserveParUnAutre": true }],
+    "attendu": "jeu_reserve"
+  },
+  {
+    "id": "pro-09",
+    "description": "limite : premier jour de retard (joursRetard=1) seul",
+    "fn": "refusProlongation",
+    "entree": [{ "prolonge": false, "joursRetard": 1, "reserveParUnAutre": false }],
+    "attendu": "en_retard"
+  }
+]

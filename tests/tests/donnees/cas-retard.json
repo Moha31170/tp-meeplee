@@ -1,0 +1,142 @@
+[
+  {
+    "id": "ret-01",
+    "description": "joursDeRetard : rendu le jour du retour prévu -> pas en retard",
+    "fn": "joursDeRetard",
+    "entree": ["2027-03-15", "2027-03-15"],
+    "attendu": 0
+  },
+  {
+    "id": "ret-02",
+    "description": "joursDeRetard : rendu avant l'échéance -> clampé à 0, jamais négatif",
+    "fn": "joursDeRetard",
+    "entree": ["2027-03-15", "2027-03-10"],
+    "attendu": 0
+  },
+  {
+    "id": "ret-03",
+    "description": "joursDeRetard : premier jour de retard",
+    "fn": "joursDeRetard",
+    "entree": ["2027-03-15", "2027-03-16"],
+    "attendu": 1
+  },
+  {
+    "id": "ret-04",
+    "description": "joursDeRetard : 6 jours de retard (sert à l'exemple de pénalité de la spécification)",
+    "fn": "joursDeRetard",
+    "entree": ["2027-03-01", "2027-03-07"],
+    "attendu": 6
+  },
+  {
+    "id": "ret-05",
+    "description": "joursDeRetard : retard traversant un changement de mois",
+    "fn": "joursDeRetard",
+    "entree": ["2027-01-25", "2027-02-05"],
+    "attendu": 11
+  },
+  {
+    "id": "ret-06",
+    "description": "joursDeRetard : retard traversant un changement d'année",
+    "fn": "joursDeRetard",
+    "entree": ["2026-12-20", "2027-01-05"],
+    "attendu": 16
+  },
+  {
+    "id": "ret-07",
+    "description": "joursDeRetard : retard traversant le 29 février d'une année bissextile",
+    "fn": "joursDeRetard",
+    "entree": ["2028-02-25", "2028-03-02"],
+    "attendu": 6
+  },
+  {
+    "id": "ret-08",
+    "description": "joursDeRetard : exactement 20 jours de retard",
+    "fn": "joursDeRetard",
+    "entree": ["2027-03-01", "2027-03-21"],
+    "attendu": 20
+  },
+  {
+    "id": "ret-09",
+    "description": "joursDeRetard : 25 jours de retard (au-delà du plafond de pénalité)",
+    "fn": "joursDeRetard",
+    "entree": ["2027-03-01", "2027-03-26"],
+    "attendu": 25
+  },
+  {
+    "id": "ret-10",
+    "description": "penalite : pas de retard",
+    "fn": "penalite",
+    "entree": [0],
+    "attendu": 0
+  },
+  {
+    "id": "ret-11",
+    "description": "penalite : 1 jour de retard",
+    "fn": "penalite",
+    "entree": [1],
+    "attendu": 0.5
+  },
+  {
+    "id": "ret-12",
+    "description": "penalite : 6 jours de retard (exemple de la spécification)",
+    "fn": "penalite",
+    "entree": [6],
+    "attendu": 3
+  },
+  {
+    "id": "ret-13",
+    "description": "penalite : 19 jours, juste sous le plafond",
+    "fn": "penalite",
+    "entree": [19],
+    "attendu": 9.5
+  },
+  {
+    "id": "ret-14",
+    "description": "penalite : 20 jours, le plafond exactement (exemple de la spécification)",
+    "fn": "penalite",
+    "entree": [20],
+    "attendu": 10
+  },
+  {
+    "id": "ret-15",
+    "description": "penalite : 21 jours, juste au-dessus du plafond -> reste plafonnée",
+    "fn": "penalite",
+    "entree": [21],
+    "attendu": 10
+  },
+  {
+    "id": "ret-16",
+    "description": "penalite : 25 jours, bien au-dessus du plafond (exemple de la spécification)",
+    "fn": "penalite",
+    "entree": [25],
+    "attendu": 10
+  },
+  {
+    "id": "ret-17",
+    "description": "formaterEuros : montant entier",
+    "fn": "formaterEuros",
+    "entree": [3],
+    "attendu": "3,00 EUR"
+  },
+  {
+    "id": "ret-18",
+    "description": "formaterEuros : montant avec centimes",
+    "fn": "formaterEuros",
+    "entree": [3.5],
+    "attendu": "3,50 EUR"
+  },
+  {
+    "id": "ret-19",
+    "description": "formaterEuros : plafond",
+    "fn": "formaterEuros",
+    "entree": [10],
+    "attendu": "10,00 EUR"
+  },
+  {
+    "id": "ret-20",
+    "description": "formaterEuros : zéro",
+    "fn": "formaterEuros",
+    "entree": [0],
+    "attendu": "0,00 EUR"
+  }
+]

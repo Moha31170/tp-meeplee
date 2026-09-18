@@ -1,0 +1,10 @@
+[
+  { "id": "J1", "nom": "Catan", "joueursMin": 3, "joueursMax": 4, "dureeMinutes": 90, "ageMin": 10, "categorie": "stratégie", "exemplaires": 1, "statut": "disponible" },
+  { "id": "J2", "nom": "Dixit", "joueursMin": 3, "joueursMax": 6, "dureeMinutes": 30, "ageMin": 8, "categorie": "ambiance", "exemplaires": 2, "statut": "disponible" },
+  { "id": "J3", "nom": "7 Wonders", "joueursMin": 2, "joueursMax": 7, "dureeMinutes": 30, "ageMin": 10, "categorie": "stratégie", "exemplaires": 1, "statut": "disponible" },
+  { "id": "J4", "nom": "Azul", "joueursMin": 2, "joueursMax": 4, "dureeMinutes": 40, "ageMin": 8, "categorie": "abstrait", "exemplaires": 2, "statut": "disponible" },
+  { "id": "J5", "nom": "Codenames", "joueursMin": 2, "joueursMax": 8, "dureeMinutes": 15, "ageMin": 14, "categorie": "ambiance", "exemplaires": 3, "statut": "disponible" },
+  { "id": "J6", "nom": "Pandemic", "joueursMin": 2, "joueursMax": 4, "dureeMinutes": 45, "ageMin": 8, "categorie": "coopératif", "exemplaires": 1, "statut": "disponible" },
+  { "id": "J7", "nom": "Les Aventuriers du Rail", "joueursMin": 2, "joueursMax": 5, "dureeMinutes": 60, "ageMin": 8, "categorie": "famille", "exemplaires": 1, "statut": "disponible" },
+  { "id": "J8", "nom": "Twilight Imperium", "joueursMin": 3, "joueursMax": 6, "dureeMinutes": 480, "ageMin": 14, "categorie": "stratégie", "exemplaires": 1, "statut": "retire" }
+]

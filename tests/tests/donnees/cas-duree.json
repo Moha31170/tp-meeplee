@@ -1,0 +1,86 @@
+[
+  {
+    "id": "dur-01",
+    "description": "standard, jour ordinaire (exemple de la spécification)",
+    "fn": "dateRetourPrevue",
+    "entree": ["2027-03-01", false],
+    "attendu": "2027-03-15"
+  },
+  {
+    "id": "dur-02",
+    "description": "premium, jour ordinaire (exemple de la spécification)",
+    "fn": "dateRetourPrevue",
+    "entree": ["2027-03-01", true],
+    "attendu": "2027-03-22"
+  },
+  {
+    "id": "dur-03",
+    "description": "standard, changement de mois (janvier -> février, 2027 non bissextile)",
+    "fn": "dateRetourPrevue",
+    "entree": ["2027-01-20", false],
+    "attendu": "2027-02-03"
+  },
+  {
+    "id": "dur-04",
+    "description": "standard, changement d'année (décembre -> janvier)",
+    "fn": "dateRetourPrevue",
+    "entree": ["2026-12-25", false],
+    "attendu": "2027-01-08"
+  },
+  {
+    "id": "dur-05",
+    "description": "premium, changement d'année (décembre -> janvier)",
+    "fn": "dateRetourPrevue",
+    "entree": ["2026-12-20", true],
+    "attendu": "2027-01-10"
+  },
+  {
+    "id": "dur-06",
+    "description": "standard, emprunt avant le 29 février d'une année bissextile (2028) : le retour tombe le jour bissextile",
+    "fn": "dateRetourPrevue",
+    "entree": ["2028-02-15", false],
+    "attendu": "2028-02-29"
+  },
+  {
+    "id": "dur-07",
+    "description": "premium, emprunt traversant le 29 février d'une année bissextile (2028)",
+    "fn": "dateRetourPrevue",
+    "entree": ["2028-02-20", true],
+    "attendu": "2028-03-12"
+  },
+  {
+    "id": "dur-08",
+    "description": "standard, même traversée de fin février mais année NON bissextile (2027) : un jour de moins en février",
+    "fn": "dateRetourPrevue",
+    "entree": ["2027-02-20", false],
+    "attendu": "2027-03-06"
+  },
+  {
+    "id": "dur-09",
+    "description": "standard, emprunt le 29 février lui-même (année bissextile 2028)",
+    "fn": "dateRetourPrevue",
+    "entree": ["2028-02-29", false],
+    "attendu": "2028-03-14"
+  },
+  {
+    "id": "dur-10",
+    "description": "formaterDate : jour ordinaire",
+    "fn": "formaterDate",
+    "entree": ["2027-03-01"],
+    "attendu": "01/03/2027"
+  },
+  {
+    "id": "dur-11",
+    "description": "formaterDate : dernier jour de l'année",
+    "fn": "formaterDate",
+    "entree": ["2027-12-31"],
+    "attendu": "31/12/2027"
+  },
+  {
+    "id": "dur-12",
+    "description": "formaterDate : jour bissextile",
+    "fn": "formaterDate",
+    "entree": ["2028-02-29"],
+    "attendu": "29/02/2028"
+  }
+]
